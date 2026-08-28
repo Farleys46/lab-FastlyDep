@@ -7,7 +7,7 @@ BASE_URL = "http://localhost:8000"
 def main():
     st.title("FastlyDep eClipseBord")
     st.divider()
-    st.markdown("### Solar Eclipse Data ")
+    st.subheader("Solar Eclipse KPIs")
 
 # Gör try / except för att hantera fel ifall backend inte funkar etc.
     try:
@@ -26,10 +26,17 @@ def main():
         # Dra en linje över sidan
         st.divider()
 
-        st.subheader("Eclipse Data")
+        # Hämta datan innan barchart
         table_response = httpx.get(f"{BASE_URL}/eclipses")
         table_data = table_response.json()
 
+        # Enkel barchart mellan datumet och Eclipse magnitude
+        df = pd.DataFrame(table_data)
+        st.subheader("Eclipse Magnitude Over Time")
+        st.bar_chart(df, x="Calendar Date", y="Eclipse Magnitude")
+
+        st.subheader("Eclipse Data")
+    
         st.dataframe(table_data)
 
     except Exception as e:
