@@ -6,6 +6,7 @@ services:
       dockerfile: dockerfiles/backend.dockerfile
     ports:
     - "8000:8000"
+    image: eclipsebordacr-cgd7dcfmbwdpdvhk.azurecr.io/backend:v1
 
   frontend:
     container_name: frontend
@@ -16,3 +17,4 @@ services:
     - "8501:8501"
     environment:
       BACKEND_URL: "http://backend:8000"
+    image: eclipsebordacr-cgd7dcfmbwdpdvhk.azurecr.io/frontend:v1
