@@ -1,8 +1,9 @@
 import pandas as pd
 import streamlit as st
 import httpx
+import os
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 def main():
     st.title("FastlyDep eClipseBord")
