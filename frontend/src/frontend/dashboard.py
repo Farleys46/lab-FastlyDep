@@ -12,7 +12,8 @@ def main():
 
 # Gör try / except för att hantera fel ifall backend inte funkar etc.
     try:
-        kpis_response = httpx.get(f"{BASE_URL}/eclipses/kpi")
+        kpis_response = httpx.get(f"{BASE_URL}/eclipses/kpi", timeout=30.0)
+        kpis_response.raise_for_status() 
         kpis = kpis_response.json()
         # Eftersom jag har 3 KPIer så skapar jag 3 kolumner för dom att va i.
         col1, col2, col3 = st.columns(3)
@@ -28,7 +29,8 @@ def main():
         st.divider()
 
         # Hämta datan innan barchart
-        table_response = httpx.get(f"{BASE_URL}/eclipses")
+        table_response = httpx.get(f"{BASE_URL}/eclipses", timeout=30.0)
+        table_response.raise_for_status() 
         table_data = table_response.json()
 
         # Enkel barchart mellan datumet och Eclipse magnitude
